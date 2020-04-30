@@ -44,22 +44,22 @@ function fileHandler() {
 
             //FDR syntax:
             let header = [
-                'COMM:flight data from G1000',
-                'ACFT:Aircraft/Laminar Research/Cessna 172/c172.acf',
-                'TAIL:LN-PFA',
-                'DATE:'+xPlaneDate(startDate),
-                'TIME:'+xPlaneTime(startDate),
-                'PRESS:'+obj[1000]['BaroA'],
-                'TEMP:'+cToF(obj[1000]['OAT']),
+                'COMM,flight data from G1000,',
+                'ACFT,Aircraft/Laminar Research/Cessna 172SP/Cessna_172SP_G1000.acf',
+                'TAIL,LN-PFA,',
+                'DATE,'+xPlaneDate(startDate)+',',
+                'TIME,'+xPlaneTime(startDate)+',',
+                'PRESS,'+obj[1000]['BaroA']+',',
+                'TEMP,'+cToF(obj[1000]['OAT'])+',',
                 //'WIND: '+obj[1000]['WndDr']+','+obj[1000]['WndSpd'],
             ];
             
-            let printFile='';
+            let printFile='A\n1\n';
             header.forEach((el)=>{
                 printFile+=el+'\n';
             });
             obj.forEach((el)=>{
-                let tmpStr = 'DATA:';
+                let tmpStr = 'DATA, ';
                 //time since start
                 tmpStr+=timeSinceStart(startDate,dateFromG1000(el['Lcl Date'],el['Lcl Time']))+',';
                 //oat in c
