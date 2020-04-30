@@ -69,5 +69,5 @@ node_modules/
 
 
 #privacy
-.csv
-.xlsx
+*.csv
+*.xlsx
