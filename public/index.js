@@ -224,9 +224,7 @@ function fileHandler() {
                 //tmpStr+=el['']+',';
                 printFile+=tmpStr+'\n';
             });
-            console.log(obj[1000]);
             download(fileName,printFile);
-            console.log(printFile);
             //kill loader animation:
             loader.hidden=true;
         });
