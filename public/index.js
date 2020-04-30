@@ -34,11 +34,22 @@ function fileHandler() {
             });
 
             //remove datapoints without position:
-            for(let j=0;j<obj.length;j++){
+            for(let j=obj.length-1;j>=0;j--){
                 if(obj[j]['Latitude'] == '0'){
                     obj.splice(j,1);
                 }
             }
+            let calib = {lat:0,lon:0,alt:0};
+
+            for(let j=0;j<obj.length;j++){
+                if(obj[j]['IAS']>50){
+                    calib.lon = obj[j]['Longitude'];
+                    calib.lat = obj[j]['Latitude'];
+                    calib.alt = obj[j]['AltGPS'];
+                    break;
+                }
+            }
+
             const startDate = dateFromG1000(obj[0]['Lcl Date'],obj[0]['Lcl Time']);
             const fileName = fileList[i].name.split('.')[0];
 
@@ -51,7 +62,7 @@ function fileHandler() {
                 'TIME,'+xPlaneTime(startDate)+',',
                 'PRESS,'+obj[1000]['BaroA']+',',
                 'TEMP,'+cToF(obj[1000]['OAT'])+',',
-                //'WIND: '+obj[1000]['WndDr']+','+obj[1000]['WndSpd'],
+                'CALI,'+calib.lon+','+calib.lat+','+calib.alt+',',//COMM,Longitude,Latitude,Elevation (ft) CALI,-118.34,34.57,456
             ];
             
             let printFile='A\n1\n';
